@@ -7,7 +7,10 @@ async function detectObj(){
         keyFilename: "./apikey.json"
     });
     
-    const fileName = "./test2.jpg";
+    /**
+     * TODO(developer): Uncomment the following line before running the sample.
+     */
+    const fileName = "./test.jpg";
     const request = {
       image: {content: fs.readFileSync(fileName)},
     };

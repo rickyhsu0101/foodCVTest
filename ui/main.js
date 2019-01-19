@@ -37,6 +37,10 @@ window.addEventListener("DOMContentLoaded", function() {
             video.play();
         }, errBack);
     }
+    var counter = 0;
+    var stopwatch = setInterval(function(){
+        console.log(++counter);
+    }, 1000)
     var interval = setInterval(function(){
         context.drawImage(video, 0, 0, 640, 480);
         var img = document.createElement("img");
