@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "fooddetection-229106",
+  "private_key_id": "5e2cea63b5498bc64db315cf53e2e1b44b13f42a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCdUjHA9Toovvsp\nnsOZNL3ndqyrDJdyHDlJHDpwPdlDvsOoTMVo6On7nHP9ynrB9oxlfnsL1GJ96BMR\nbivTX2p0hTyPeDKT3+RIkAJ8jn1GC/E0wwbzOXrqitD7lKJ1Rc78udFWzf5ZIq26\n0BlExwaxETwZ8ss3A6q2xkkh4fic5e+MFDPgMgYRtX8PMro+Dfl1sVqaPhtpMSnr\nLdEuqLPAEg13Xq4BwnAbU1TyBxPMgB7V5YPnff0eJXcvOD9uNrwd66+qnjZ+s6J3\nSlzwvDJ3yeGf4Q+p+ifCqbYmVMxYzNCHo0u4ZfQNxEmZPnxYWJ8SrmiH6J2K50a5\nq8KWpCDPAgMBAAECggEAMkR7olCY+0D+xs80Z4UrMsTAKk11LKBpC3vKDmgsvlE7\nelDBeSKG9P8KLuseK1DIjnuJ/H8p01oukZC2zyy7Oq0B60O4QXi2HBtrt/ndfF6/\nfSDd3SSeKkgdu21ENZ2PJECJa6eZYEjM4xawJEJF2JkNr6rdFOCGkS0tW/a0tgjf\nr5JiD04DQApRPbDunCoxGj6+udGt/B/5lTHz16RlAPu8LU4vFl+vJCiSSJ5c/LRt\nQeuDJHiEoNLiIdUjBOI3fN6YvkyR5tsX1DQqyU8hItes4DF1MpBNk3VOHQUTeCPg\nOTzAV8hFjPNjobnaOElKhoWGuOQ5Ax4GFItsM3ctHQKBgQDbTJaJTB1WZJPuvc+g\nJUbZJMNNZoSpMwG2/Rqw+25i0Il4RxXKOP4raX8nd8+FJnAbnNiPI6+qIHn9etNV\n3Y6QQxy3JjJjbyXR3zmr3kGZbSVWmOfEFYJO4bQdM/08ofFqSSi5eRX66NwaHUCm\nmeCi5qtTuZ3BHmUcbwLL+xczTQKBgQC3pkjwE29fGAOzUX0phhERCqfa9lAMui4u\nXQRmccfjJkfhH9mJ5Gw0XSMBgeky9aF5O9c7afxvpHNnzGBnMjotayGLPo6T98Uj\nJxY8Y864MQaaqi5dpG2TjZRVZI8YFsJClo+gyFYQOPNmqTZiA2ZdZooE48XKti0y\nwCZBaIleiwKBgQCOZ1x1iZyfZi594Hn711j7VpkQINtSeBHL/u2fMZZLynkKRrbK\nm1nJXPc57N4v63bvJ1mlEZpXkkFFLcYgQv/5g+sYr1AXK6zWbOspROk6NRsC8cXG\nmeUFTiFEuWbfQZXf2+P7FLsGNMIAnzBFPzUU808bzjO3nQIxhZC+Xq2BHQKBgQCa\n6O/jWnF6RDZy3sz15rmkp1lZkKWLZsynnRymEVnrmBHPqt8DuqMvNFTf46ZCrwEq\n0zhFTKx7u7sBFltHEQ4T26cq3nTECZ7HfSP7grEPm4MXmW+M27L2YNl7glxVlHT+\nWCQFGpfGDVP7B8bwvC9vn5vSbhMcX7kWcxCR4czl6wKBgQC+8KwDBHRl4BjW1tPP\nu2tP6ITS/AuZvwd0SkYPFUZPhdy23IE6v9epljRFynYU2C4ZZdN/2sZP/QcnUzFr\n4V3YqHitbYK2N49g1Q16uMeYvW29kpQRDFd/BUXfom0J/rVpIvh8jmUAEk8vW2kp\n3rM2u4WXmDZ7n/U5TgFa5/BRjg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "testfoodphotosrickyhello@fooddetection-229106.iam.gserviceaccount.com",
+  "client_id": "102624972175016901665",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/testfoodphotosrickyhello%40fooddetection-229106.iam.gserviceaccount.com"
+}
