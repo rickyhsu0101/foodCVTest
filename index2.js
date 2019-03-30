@@ -19,7 +19,7 @@ function base64_encode(file) {
   return new Buffer(bitmap).toString('base64');
 }
 var base64str = base64_encode('./test.jpg');
-axios.post("https://food-locator-app.herokuapp.com/api/sendImage", {img: base64str})
+axios.post("https://safe-forest-54595.herokuapp.com/api/sendImage", {img: base64str})
   .then(function(response){
     console.log(response.data);
   })

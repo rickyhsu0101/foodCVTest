@@ -5,6 +5,7 @@ const path = require('path');
 const vision = require('@google-cloud/vision');
 const fs = require("fs");
 const moment = require("moment");
+const PORT = process.env.PORT || 5000
 
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey('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');
@@ -110,6 +111,6 @@ app.post("/api/sendImage", (req,res)=>{
     
     
 })
-app.listen($PORT, ()=>{
-    console.log("PORT open on 8080");
+app.listen(PORT, ()=>{
+    console.log("PORT open on " + PORT);
 })
