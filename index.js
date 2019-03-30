@@ -98,7 +98,7 @@ app.use(function (req, res, next) {
 app.use("/static", express.static(path.join(__dirname, '/ui')));
 app.get("/", (req, res)=>{
     return res.sendFile(path.join(__dirname, "/ui/index.html"));
-}) 
+});
 app.post("/api/sendImage", (req,res)=>{
     var base64Img = req.body.img.replace(/^data:image\/png;base64,/, "");
     //console.log(base64Img);
@@ -110,6 +110,6 @@ app.post("/api/sendImage", (req,res)=>{
     
     
 })
-app.listen(8080, ()=>{
+app.listen($PORT, ()=>{
     console.log("PORT open on 8080");
 })
