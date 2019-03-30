@@ -5,6 +5,7 @@ const path = require('path');
 const vision = require('@google-cloud/vision');
 const fs = require("fs");
 const moment = require("moment");
+const mongoose = require("mongoose");
 const PORT = process.env.PORT || 5000
 
 const sgMail = require('@sendgrid/mail');
@@ -20,10 +21,13 @@ const msg = {
 
 const terms = ["Dessert", "Ice Cream", "Tin Can", "Wrapper", "Drink", "Food", "Pastry", "Baked goods", "Bread","Kitchenware"];
 const not = ["Tableware", "Plate"];
-const tags = [];
-let lastCalled;
-let food = false;
+
+
+
 async function detectObj(callback){
+  const tags = [];
+  let lastCalled;
+  let food = false;
   console.log("detecting object");
     const client = new vision.ImageAnnotatorClient({
         keyFilename: "./apikey.json"
@@ -51,10 +55,7 @@ async function detectObj(callback){
       if(tags.indexOf(object.name)===-1){
         tags.push(object.name);
       }
-      if(food || terms.indexOf(object.name)!==-1){
-          food = true;
-      }
-      
+      food = true;
     });
     if(tags.length > 0){
       console.log(tags.reduce((acc, cv)=>acc+ " "+cv));}
@@ -90,6 +91,17 @@ async function detectObj(callback){
 }
 
 
+
+const db = "mongodb://rickyhsu0101:rickyhsu0101@ds231501.mlab.com:31501/food-locator";
+mongoose
+  .connect(db, {
+    useNewUrlParser: true
+  })
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err, 'there is an error'));
+require('./models/index');
+const FoodPosting = mongoose.model("foodpostings");
+
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser.json({limit: '50mb', extended: true}));
 app.use(function (req, res, next) {
@@ -108,10 +120,34 @@ app.post("/api/sendImage", (req,res)=>{
     detectObj((tags)=>{
         console.log(tags);
         return res.json({status: 'succeed', tags: tags});
-    })
-    
-    
-})
+    });
+});
+app.post("/api/postfood", (req, res)=>{
+  var base64Img = req.body.img.replace(/^data:image\/png;base64,/, "");
+  let newFood = {
+    image: base64Img,
+    time: new Date().getUTCMilliseconds(),
+    description: req.body.description,
+    locationLat: req.body.locationLat,
+    locationLong: req.body.locationLong,
+    donor: req.body.donor,
+    acceptor: req.body.acceptor
+  }
+  new FoodPosting.save(newFood)
+    .then(food=>{
+      return res.json({status: 'succeed', newFood});
+    });
+});
+app.get("/api/food/:lat/:long", (req, res)=>{
+  FoodPosting.find({locationLat: req.params.lat, locationLong: req.params.long})
+    .then(food=>{
+      if(food){
+        return res.json({status: 'succeed', food});
+      }else{
+        return res.json({status: 'fail'});
+      }
+    });
+});
 app.listen(PORT, ()=>{
     console.log("PORT open on " + PORT);
 })
