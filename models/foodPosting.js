@@ -13,6 +13,10 @@ const FoodPostingSchema = new Schema({
     type: String,
     required: true
   },
+  type: {
+    type: String,
+    required: true
+  },
   locationLat: {
     type: Number,
     required: true

@@ -127,6 +127,7 @@ app.post("/api/postfood", (req, res)=>{
   let newFood = {
     image: base64Img,
     time: new Date().getUTCMilliseconds(),
+    type: req.body.type,
     description: req.body.description,
     locationLat: req.body.locationLat,
     locationLong: req.body.locationLong,
