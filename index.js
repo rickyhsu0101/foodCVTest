@@ -44,8 +44,12 @@ async function detectObj(callback){
       const vertices = object.boundingPoly.normalizedVertices;
       vertices.forEach(v => console.log(`x: ${v.x}, y:${v.y}`));
       */
+     /*
       if(tags.indexOf(object.name)===-1&&terms.indexOf(object.name)!==-1){
           tags.push(object.name);
+      }*/
+      if(tags.indexOf(object.name)===-1){
+        tags.push(object.name);
       }
       if(food || terms.indexOf(object.name)!==-1){
           food = true;
