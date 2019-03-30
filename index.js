@@ -40,13 +40,14 @@ async function detectObj(callback){
     
     const [result] = await client.objectLocalization(request);
     const objects = result.localizedObjectAnnotations;
-
+/*
     const loadFoods = (GCPtext) => {
       let filePath = path.join(__dirname, 'foodList.txt');
       foodList = fs.readFileSync(filePath, 'utf-8');
       let food = foodList.split('\n');
       return food.includes(GCPtext) ? GCPtext : 'Not a food';
   }
+  */
     console.log(objects.length);
     objects.forEach(object => {
       console.log(`Name: ${object.name}`);
@@ -60,7 +61,7 @@ async function detectObj(callback){
       if(tags.indexOf(object.name)===-1&&terms.indexOf(object.name)!==-1){
           tags.push(object.name);
       }*/
-      if(tags.indexOf(object.name)===-1 && loadFoods(object.name)!=="Not a food"){
+      if(tags.indexOf(object.name)===-1 /*&& loadFoods(object.name)!=="Not a food"*/){
         tags.push(object.name);
       }
       food = true;
