@@ -19,12 +19,13 @@ function base64_encode(file) {
   return new Buffer(bitmap).toString('base64');
 }
 var base64str = base64_encode('./test.jpg');
-axios.post("https://safe-forest-54595.herokuapp.com/api/sendImage", {img: base64str})
+
+axios.post("http://localhost:5000/api/postfood", {img: base64str, description: "description", locationLat: -20, locationLong: -20, donor: "Ricky", acceptor: "Will"})
   .then(function(response){
     console.log(response.data);
   })
   .catch(function(error){
-    console.log("error");
+    console.log(error.response);
   });
 async function detectObj(){
     const client = new vision.ImageAnnotatorClient({

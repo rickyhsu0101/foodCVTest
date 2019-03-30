@@ -133,7 +133,7 @@ app.post("/api/postfood", (req, res)=>{
     donor: req.body.donor,
     acceptor: req.body.acceptor
   }
-  new FoodPosting.save(newFood)
+  new FoodPosting(newFood).save()
     .then(food=>{
       return res.json({status: 'succeed', newFood});
     });
