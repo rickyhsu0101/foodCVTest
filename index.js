@@ -59,9 +59,7 @@ async function detectObj(callback){
     if(tags.length > 0){
       console.log(tags.reduce((acc, cv)=>acc+ " "+cv));}
     if(food){
-        if(moment().diff(moment(lastCalled)) < 120000 && lastCalled!= undefined){
-            console.log("same food");
-        }else{
+       
             console.log("EMAIL IS GOING TO BE SENT");
             lastCalled = moment().toDate();
             msg.text = 'hello';
@@ -85,7 +83,6 @@ async function detectObj(callback){
               }, function(err, info){
                 callback(tags)
               });*/
-        }
       }else{
         callback(tags);
       }
