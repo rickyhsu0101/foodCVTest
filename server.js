@@ -90,6 +90,11 @@ async function detectObj(callback){
 
 app.use(bodyParser.urlencoded({limit: '10mb', extended: true}));
 app.use(bodyParser.json({limit: '10mb', extended: true}));
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
+});
 app.use("/static", express.static(path.join(__dirname, '/ui')));
 app.get("/", (req, res)=>{
     return res.sendFile(path.join(__dirname, "/ui/index.html"));
