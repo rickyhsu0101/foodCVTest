@@ -40,10 +40,18 @@ async function detectObj(callback){
     
     const [result] = await client.objectLocalization(request);
     const objects = result.localizedObjectAnnotations;
+
+    const loadFoods = (GCPtext) => {
+      let filePath = path.join(__dirname, 'foodList.txt');
+      foodList = fs.readFileSync(filePath, 'utf-8');
+      let food = foodList.split('\n');
+      return food.includes(GCPtext) ? GCPtext : 'Not a food';
+  }
     console.log(objects.length);
     objects.forEach(object => {
       console.log(`Name: ${object.name}`);
       console.log(`Confidence: ${object.score}`);
+
       /*
       const vertices = object.boundingPoly.normalizedVertices;
       vertices.forEach(v => console.log(`x: ${v.x}, y:${v.y}`));
@@ -52,7 +60,7 @@ async function detectObj(callback){
       if(tags.indexOf(object.name)===-1&&terms.indexOf(object.name)!==-1){
           tags.push(object.name);
       }*/
-      if(tags.indexOf(object.name)===-1){
+      if(tags.indexOf(object.name)===-1 && loadFoods(object.name)!=="Not a food"){
         tags.push(object.name);
       }
       food = true;
@@ -60,7 +68,29 @@ async function detectObj(callback){
     if(tags.length > 0){
       console.log(tags.reduce((acc, cv)=>acc+ " "+cv));}
     if(food){
-       
+      /*
+      let GCPtext = 'pizza';
+
+      
+      const accountSid = 'ACf8b6506a484a01e1a6f2b1b4e95226e9';
+      const authToken = '9ea741c1bc93f00a0a429a9f245bb1df';
+      const client = require('twilio')(accountSid, authToken);
+      
+      
+      
+      let recipientNumber = '';
+     
+      client.messages
+          .create({
+              body: text,
+              from: '+13233103420',
+              to: recipientNumber
+          })
+          .then(message => console.log('message sent'))
+          .done();
+     
+      */
+      
             console.log("EMAIL IS GOING TO BE SENT");
             lastCalled = moment().toDate();
             msg.text = 'hello';
@@ -119,7 +149,7 @@ app.post("/api/sendImage", (req,res)=>{
     fs.writeFileSync("out.png", base64Img, 'base64');
     detectObj((tags)=>{
         console.log(tags);
-        return res.json({status: 'succeed', tags: tags});
+        return res.json({status: 'succeed', tags: tags.join(" ")});
     });
 });
 app.post("/api/postfood", (req, res)=>{
