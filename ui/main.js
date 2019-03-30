@@ -52,9 +52,11 @@ window.addEventListener("DOMContentLoaded", function() {
                 img: dataUrl
             }
         }).done(function(response){
-
+            console.log(response);
+            clearInterval(interval);
         });
-    }, 60000)
+    }, 20000)
+    
     // Trigger photo take
     document.getElementById('snap').addEventListener('click', function() {
         clearInterval(interval);

@@ -1,6 +1,16 @@
 const vision = require('@google-cloud/vision');
 const fs = require('fs');
 
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey('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');
+const msg = {
+  to: 'rickyhsu0101@gmail.com',
+  from: 'duragontale@gmail.com',
+  subject: 'Sending with SendGrid is Fun',
+  text: 'and easy to do anywhere, even with Node.js',
+  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+};
+sgMail.send(msg);
 // Creates a client
 async function detectObj(){
     const client = new vision.ImageAnnotatorClient({
@@ -23,5 +33,6 @@ async function detectObj(){
       const vertices = object.boundingPoly.normalizedVertices;
       vertices.forEach(v => console.log(`x: ${v.x}, y:${v.y}`));
     });
+   
 }
 detectObj();

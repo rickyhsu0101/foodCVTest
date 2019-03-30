@@ -6,19 +6,24 @@ const vision = require('@google-cloud/vision');
 const fs = require("fs");
 const moment = require("moment");
 
-const nodemailer = require("nodemailer");
-const sendgridTransport= require("nodemailer-sendgrid-transport");
-const transporter = nodemailer.createTransport(sendgridTransport({
-  auth:{
-    api_user: 'rickyhsu0101',
-    api_key: 'rickyhsu0101!'
-  }
-}));
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey('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');
+const msg = {
+  to: 'rickyhsu0101@gmail.com',
+  from: 'duragontale@gmail.com',
+  subject: 'Sending with SendGrid is Fun',
+  text: 'and easy to do anywhere, even with Node.js',
+  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+};
 
-const terms = ["Dessert", "Ice Cream", "Tin Can", "Wrapper", "Drink", "Food", "Pastry", "Baked goods"];
+
+const terms = ["Dessert", "Ice Cream", "Tin Can", "Wrapper", "Drink", "Food", "Pastry", "Baked goods", "Bread","Kitchenware"];
+const not = ["Tableware", "Plate"];
+const tags = [];
 let lastCalled;
 let food = false;
 async function detectObj(callback){
+  console.log("detecting object");
     const client = new vision.ImageAnnotatorClient({
         keyFilename: "./apikey.json"
     });
@@ -30,6 +35,7 @@ async function detectObj(callback){
     
     const [result] = await client.objectLocalization(request);
     const objects = result.localizedObjectAnnotations;
+    console.log(objects.length);
     objects.forEach(object => {
       console.log(`Name: ${object.name}`);
       console.log(`Confidence: ${object.score}`);
@@ -37,34 +43,46 @@ async function detectObj(callback){
       const vertices = object.boundingPoly.normalizedVertices;
       vertices.forEach(v => console.log(`x: ${v.x}, y:${v.y}`));
       */
+      if(tags.indexOf(object.name)===-1&&terms.indexOf(object.name)!==-1){
+          tags.push(object.name);
+      }
       if(food || terms.indexOf(object.name)!==-1){
           food = true;
       }
       
     });
+    if(tags.length > 0){
+      console.log(tags.reduce((acc, cv)=>acc+ " "+cv));}
     if(food){
         if(moment().diff(moment(lastCalled)) < 120000 && lastCalled!= undefined){
             console.log("same food");
         }else{
             console.log("EMAIL IS GOING TO BE SENT");
             lastCalled = moment().toDate();
+            msg.text = 'hello';
+            msg.html = `<div style = "width: 100%; text-align: center">Food Type: ${tags.reduce((acc, cv)=>acc+ ", "+cv)}</div><div style = "width: 100%; text-align: center">There are food available. Please go claim it now.</div><img src="uniquefoodrightnow"/>`;
+            
+            sgMail.send(msg, function(err, info){
+              callback(tags);
+            })
+            /*
             transporter.sendMail({
                 to: "rickyhsu0101@gmail.com",
-                from: '"Duragon Tale"<duragontale@gmail.com>',
-                subject: "Available Food",
+                from: '"Free Food Co."<duragontale@gmail.com>',
+                subject: "Food Available Near Your Area",
                 text: "hello",
-                html: `<div style = "width: 100%; text-align: center">There are food available</div><img src="uniquefoodrightnow"/>`,
+                html: `<div style = "width: 100%; text-align: center">Food Type: ${tags.reduce((acc, cv)=>acc+ ", "+cv)}</div><div style = "width: 100%; text-align: center">There are food available. Please go claim it now.</div><img src="uniquefoodrightnow"/>`,
                 attachments: [{
                     filename: 'out.png',
                     path: __dirname + '/out.png',
                     cid: 'uniquefoodrightnow' //same cid value as in the html img src
-                }]
+                }] x
               }, function(err, info){
-                callback()
-              });
+                callback(tags)
+              });*/
         }
       }else{
-        callback();
+        callback(tags);
       }
     
 }
@@ -80,9 +98,9 @@ app.post("/api/sendImage", (req,res)=>{
     var base64Img = req.body.img.replace(/^data:image\/png;base64,/, "");
     //console.log(base64Img);
     fs.writeFileSync("out.png", base64Img, 'base64');
-    detectObj(()=>{
-        
-        return res.json({status: 'succeed'});
+    detectObj((tags)=>{
+        console.log(tags);
+        return res.json({status: 'succeed', tags: tags});
     })
     
     
