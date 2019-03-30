@@ -89,8 +89,8 @@ async function detectObj(callback){
 }
 
 
-app.use(bodyParser.urlencoded({limit: '500mb', extended: true}));
-app.use(bodyParser.json({limit: '500mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.json({limit: '50mb', extended: true}));
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
