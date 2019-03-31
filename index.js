@@ -162,8 +162,8 @@ app.post("/api/postfood", (req, res)=>{
     description: req.body.description,
     locationLat: req.body.locationLat,
     locationLong: req.body.locationLong,
-    donor: req.body.donor,
-    acceptor: req.body.acceptor
+    donor: req.body.donor ? req.body.donor: null,
+    acceptor: req.body.acceptor ? req.body.acceptor: null
   }
   new FoodPosting(newFood).save()
     .then(food=>{
